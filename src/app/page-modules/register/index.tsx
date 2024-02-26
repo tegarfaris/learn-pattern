@@ -11,6 +11,7 @@ const Register = () => {
     username: "",
     password: "",
     phoneNumber: "",
+    role: "client",
   });
 
   const [error, setError] = React.useState({
@@ -43,10 +44,13 @@ const Register = () => {
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError({ ...error, password: "", phoneNumber: "" });
+    const redirectUrl = value.role === "client" ? "/" : "/dashboard"; 
+
 
     if (!handleError(e)) {
       Cookies.set("dataRegister", JSON.stringify(value));
-      router.push("/");
+      router.push(redirectUrl);
+
       console.log(JSON.stringify(value));
       console.log("email: ", value.email);
       console.log("username: ", value.username);
